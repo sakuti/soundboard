@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Soundboard</title>
+</head>
+<body>
+	{% if data.needs_to_be_assigned %}
+		<section needs-to-be-assigned-view>
+			<p>Määrittämätön painike, valitse äänitiedosto vihreällä korostetulle painikkeelle. Painike on korostettu MIDI laitteesssa.</p>
+			<br><br>
+
+			<form action="/assign" method="post">
+				<select id="audiofile" name="audiofile">
+					{% for entry in unassigned_audios %}
+						<option value="{{entry}}">{{entry}}</option>
+					{% endfor %}
+				</select>
+				<input type="submit">
+			</form>
+		</section>
+	{% else %}
+		<main>
+			{% for y in range(0, 8) %}
+				<div data-row="{{y+1}}">
+					{% for x in range(0, 8) %}
+						<div data-key="[144, {{y*16+x}}, 127, 0]">{{(y*16)+x}}</div>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</main>
+	{% endif %}
+
+	<script defer>
+		// Eww...
+		const data = [{% for audio in data.audios.items() %}["{{ audio[0] }}", {{ audio[1] }}], {% endfor %}]
+
+		data.forEach(entry => {
+			console.log(`[data-key="[${entry[1].join(",")}]"]`)
+			document.querySelector(`[data-key="[${entry[1].join(", ")}]"]`).setAttribute("data-audiofile", entry[0])
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	background-color: #eee7ea;
+}
+
+html {
+	display: grid;	
+	place-items: center;
+	height: 100svh;
+	font-family: Arial, sans-serif;
+}
+
+section > p {
+	font-size: 20px;
+	max-width: 400px;
+	font-weight: 500;
+}
+
+section > form > input,
+section > form > select {
+	padding: 8px;
+	font-size: 16px;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+main > div[data-row] {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}
+
+main > div[data-row] > div[data-key] {
+	background-color: white;
+	border: 2px solid #d9dde0;
+	aspect-ratio: 1/1;
+	width: 58px;
+	text-align: center;
+	border-radius: 8px;
+	display: grid;
+	place-items: center;
+	font-size: small;
+}
+
+main > div[data-row] > div[data-audiofile] {
+	background-color: #ffbb3c;
+}
+
+main > div[data-row] > div[data-audiofile]:hover {
+	cursor: help;
+}
+
+main > div[data-row] > div[data-audiofile]:hover:before {
+	content: attr(data-audiofile);
+	position: fixed;
+	top: 48px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 24px;
+}

@@ -1,0 +1,4 @@
+/tests
+/audio/*
+!/audio/README.md
+__pycache__
